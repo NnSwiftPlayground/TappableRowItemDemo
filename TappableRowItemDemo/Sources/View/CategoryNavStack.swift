@@ -14,12 +14,27 @@ struct CategoryNavStack: View {
     var body: some View {
         NavigationStack(path: $path) {
             List {
-                ForEach(viewModel.categories) { category in
-                    CategoryRow(category: category)
-                        // 🟢 Primary Feature: Ensures entire row is tappable
-                        .tappable(withChevron: true) {
+                CustomSection("Tappable", details: "Can tap anywhere to trigger action") {
+                    ForEach(viewModel.categories) { category in
+                        CategoryRow(category: category)
+                            // 🟢 Primary Feature: Ensures entire row is tappable
+                            .tappable(withChevron: true) {
+                                path.append(category)
+                            }
+                    }
+                }
+                
+                CustomSection("OnTapGesture w/HStack & Image", details: "Tap action only triggers when directly tapping the text or chevron image.") {
+                    ForEach(viewModel.categories) { category in
+                        HStack {
+                            CategoryRow(category: category)
+                            Spacer()
+                            Image(systemName: "chevron.right")
+                        }
+                        .onTapGesture {
                             path.append(category)
                         }
+                    }
                 }
             }
             .navigationTitle("Categories")

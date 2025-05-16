@@ -20,4 +20,12 @@ extension MyItem {
             .init(id: 3, name: "Cherry")
         ]
     }
+    
+    static var secondaryList: [MyItem] {
+        return [
+            .init(id: 1, name: "Asparagus"),
+            .init(id: 2, name: "Brocolli"),
+            .init(id: 3, name: "Cucumber")
+        ]
+    }
 }

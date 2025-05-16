@@ -15,11 +15,22 @@ struct CategoryDetailView: View {
     
     var body: some View {
         List {
-            ForEach(MyItem.sampleList) { item in
-                ItemRow(item: item, isSelected: category.selectedItems.contains(item))
-                // 🟢 Primary Feature: Ensures entire row is tappable
-                .tappable {
-                    category.selectedItems.toggle(item)
+            CustomSection("Tappable", details: "Can tap anywhere to trigger action") {
+                ForEach(MyItem.sampleList) { item in
+                    ItemRow(item: item, isSelected: category.selectedItems.contains(item))
+                        // 🟢 Primary Feature: Ensures entire row is tappable
+                        .tappable {
+                            category.selectedItems.toggle(item)
+                        }
+                }
+            }
+            
+            CustomSection("OnTapGesture", details: "Tap action only triggers when directly tapping the text.") {
+                ForEach(MyItem.secondaryList) { item in
+                    ItemRow(item: item, isSelected: category.selectedItems.contains(item))
+                        .onTapGesture {
+                            category.selectedItems.toggle(item)
+                        }
                 }
             }
         }
